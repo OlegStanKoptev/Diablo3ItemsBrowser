@@ -12,20 +12,20 @@ class ApiRepository {
     private init() {}
     static let shared = ApiRepository()
 
-    // MARK: - Fields
+    // MARK: - Public Fields
     var urlSession = URLSession.shared
     var authURL: URL!
     var dataURL: URL!
     var iconsURL: URL!
-    private func iconURL(of name: String, size: IconSize) -> URL {
-        iconsURL.appendingPathComponent(size.rawValue).appendingPathComponent(name).appendingPathExtension("png")
-    }
     
     var clientId: String = ""
     var clientSecret: String = ""
     
+    // MARK: - Private Fields
     private var accessToken: String?
-    
+    private func iconURL(of name: String, size: IconSize) -> URL {
+        iconsURL.appendingPathComponent(size.rawValue).appendingPathComponent(name).appendingPathExtension("png")
+    }
     // MARK: - Public Methods
     
     func configure(configure: (ApiRepository) -> Void) {
