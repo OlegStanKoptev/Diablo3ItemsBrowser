@@ -9,21 +9,49 @@
 /* Begin PBXBuildFile section */
 		DC213E4027D8A24C00B27C05 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC213E3F27D8A24C00B27C05 /* AppDelegate.swift */; };
 		DC213E4227D8A24C00B27C05 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC213E4127D8A24C00B27C05 /* SceneDelegate.swift */; };
-		DC213E4427D8A24C00B27C05 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC213E4327D8A24C00B27C05 /* ViewController.swift */; };
-		DC213E4727D8A24C00B27C05 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC213E4527D8A24C00B27C05 /* Main.storyboard */; };
 		DC213E4927D8A24C00B27C05 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC213E4827D8A24C00B27C05 /* Assets.xcassets */; };
 		DC213E4C27D8A24C00B27C05 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC213E4A27D8A24C00B27C05 /* LaunchScreen.storyboard */; };
+		DC213E5C27D8CCF600B27C05 /* ItemTypesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC213E5B27D8CCF600B27C05 /* ItemTypesViewController.swift */; };
+		DC213E6227D9EE4600B27C05 /* ItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC213E6127D9EE4600B27C05 /* ItemType.swift */; };
+		DC213E6427D9EE4D00B27C05 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC213E6327D9EE4D00B27C05 /* Item.swift */; };
+		DC213E6627D9EE5700B27C05 /* ItemDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC213E6527D9EE5700B27C05 /* ItemDescription.swift */; };
+		DC213E6F27D9EF4600B27C05 /* ItemTypesServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC213E6E27D9EF4600B27C05 /* ItemTypesServiceProtocol.swift */; };
+		DC213E7127D9EF8000B27C05 /* BlizzardItemTypesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC213E7027D9EF8000B27C05 /* BlizzardItemTypesService.swift */; };
+		DC213E7327D9EFCF00B27C05 /* ItemsServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC213E7227D9EFCF00B27C05 /* ItemsServiceProtocol.swift */; };
+		DC213E7527D9EFD900B27C05 /* BlizzardItemsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC213E7427D9EFD900B27C05 /* BlizzardItemsService.swift */; };
+		DC213E7727D9EFE300B27C05 /* ItemDescriptionServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC213E7627D9EFE300B27C05 /* ItemDescriptionServiceProtocol.swift */; };
+		DC213E7927D9EFEF00B27C05 /* BlizzardItemDescriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC213E7827D9EFEF00B27C05 /* BlizzardItemDescriptionService.swift */; };
+		DC213E7B27D9F03200B27C05 /* ItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC213E7A27D9F03200B27C05 /* ItemsViewController.swift */; };
+		DC213E7D27D9F03B00B27C05 /* ItemDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC213E7C27D9F03B00B27C05 /* ItemDescriptionViewController.swift */; };
+		DC213E7F27DB134F00B27C05 /* ApiRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC213E7E27DB134F00B27C05 /* ApiRepository.swift */; };
+		DC213E8727DB155700B27C05 /* IconSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC213E8627DB155700B27C05 /* IconSize.swift */; };
+		DC213E8927DB156100B27C05 /* OAuthTokenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC213E8827DB156100B27C05 /* OAuthTokenResponse.swift */; };
+		DC213E8B27DB157200B27C05 /* ApiRepositoryError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC213E8A27DB157200B27C05 /* ApiRepositoryError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		DC213E3C27D8A24C00B27C05 /* Diablo3ItemsBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Diablo3ItemsBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC213E3F27D8A24C00B27C05 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DC213E4127D8A24C00B27C05 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		DC213E4327D8A24C00B27C05 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		DC213E4627D8A24C00B27C05 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DC213E4827D8A24C00B27C05 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DC213E4B27D8A24C00B27C05 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DC213E4D27D8A24C00B27C05 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DC213E5B27D8CCF600B27C05 /* ItemTypesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTypesViewController.swift; sourceTree = "<group>"; };
+		DC213E6127D9EE4600B27C05 /* ItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemType.swift; sourceTree = "<group>"; };
+		DC213E6327D9EE4D00B27C05 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		DC213E6527D9EE5700B27C05 /* ItemDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDescription.swift; sourceTree = "<group>"; };
+		DC213E6E27D9EF4600B27C05 /* ItemTypesServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTypesServiceProtocol.swift; sourceTree = "<group>"; };
+		DC213E7027D9EF8000B27C05 /* BlizzardItemTypesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlizzardItemTypesService.swift; sourceTree = "<group>"; };
+		DC213E7227D9EFCF00B27C05 /* ItemsServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsServiceProtocol.swift; sourceTree = "<group>"; };
+		DC213E7427D9EFD900B27C05 /* BlizzardItemsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlizzardItemsService.swift; sourceTree = "<group>"; };
+		DC213E7627D9EFE300B27C05 /* ItemDescriptionServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDescriptionServiceProtocol.swift; sourceTree = "<group>"; };
+		DC213E7827D9EFEF00B27C05 /* BlizzardItemDescriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlizzardItemDescriptionService.swift; sourceTree = "<group>"; };
+		DC213E7A27D9F03200B27C05 /* ItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsViewController.swift; sourceTree = "<group>"; };
+		DC213E7C27D9F03B00B27C05 /* ItemDescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDescriptionViewController.swift; sourceTree = "<group>"; };
+		DC213E7E27DB134F00B27C05 /* ApiRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiRepository.swift; sourceTree = "<group>"; };
+		DC213E8627DB155700B27C05 /* IconSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconSize.swift; sourceTree = "<group>"; };
+		DC213E8827DB156100B27C05 /* OAuthTokenResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthTokenResponse.swift; sourceTree = "<group>"; };
+		DC213E8A27DB157200B27C05 /* ApiRepositoryError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiRepositoryError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +84,165 @@
 		DC213E3E27D8A24C00B27C05 /* Diablo3ItemsBrowser */ = {
 			isa = PBXGroup;
 			children = (
-				DC213E3F27D8A24C00B27C05 /* AppDelegate.swift */,
-				DC213E4127D8A24C00B27C05 /* SceneDelegate.swift */,
-				DC213E4327D8A24C00B27C05 /* ViewController.swift */,
-				DC213E4527D8A24C00B27C05 /* Main.storyboard */,
-				DC213E4827D8A24C00B27C05 /* Assets.xcassets */,
-				DC213E4A27D8A24C00B27C05 /* LaunchScreen.storyboard */,
-				DC213E4D27D8A24C00B27C05 /* Info.plist */,
+				DC213E5E27D8CD3400B27C05 /* Common */,
+				DC213E5727D8CCB000B27C05 /* Features */,
+				DC213E5327D8A29600B27C05 /* Application */,
 			);
 			path = Diablo3ItemsBrowser;
+			sourceTree = "<group>";
+		};
+		DC213E5327D8A29600B27C05 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				DC213E3F27D8A24C00B27C05 /* AppDelegate.swift */,
+				DC213E4127D8A24C00B27C05 /* SceneDelegate.swift */,
+				DC213E4A27D8A24C00B27C05 /* LaunchScreen.storyboard */,
+				DC213E4827D8A24C00B27C05 /* Assets.xcassets */,
+				DC213E4D27D8A24C00B27C05 /* Info.plist */,
+			);
+			name = Application;
+			sourceTree = "<group>";
+		};
+		DC213E5727D8CCB000B27C05 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				DC213E5827D8CCBD00B27C05 /* Item Types */,
+				DC213E5927D8CCCA00B27C05 /* Items */,
+				DC213E5A27D8CCD000B27C05 /* Item Description */,
+			);
+			name = Features;
+			sourceTree = "<group>";
+		};
+		DC213E5827D8CCBD00B27C05 /* Item Types */ = {
+			isa = PBXGroup;
+			children = (
+				DC213E5D27D8CD2D00B27C05 /* Models */,
+				DC213E6B27D9EF1600B27C05 /* Views */,
+				DC213E6727D9EEDB00B27C05 /* Services */,
+			);
+			name = "Item Types";
+			sourceTree = "<group>";
+		};
+		DC213E5927D8CCCA00B27C05 /* Items */ = {
+			isa = PBXGroup;
+			children = (
+				DC213E5F27D9EDD800B27C05 /* Models */,
+				DC213E6C27D9EF2200B27C05 /* Views */,
+				DC213E6827D9EEEC00B27C05 /* Services */,
+			);
+			name = Items;
+			sourceTree = "<group>";
+		};
+		DC213E5A27D8CCD000B27C05 /* Item Description */ = {
+			isa = PBXGroup;
+			children = (
+				DC213E6027D9EDE100B27C05 /* Models */,
+				DC213E6D27D9EF2600B27C05 /* Views */,
+				DC213E6927D9EEF000B27C05 /* Services */,
+			);
+			name = "Item Description";
+			sourceTree = "<group>";
+		};
+		DC213E5D27D8CD2D00B27C05 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DC213E6127D9EE4600B27C05 /* ItemType.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		DC213E5E27D8CD3400B27C05 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				DC213E8527DB155000B27C05 /* Models */,
+				DC213E8227DB153E00B27C05 /* Networking */,
+			);
+			name = Common;
+			sourceTree = "<group>";
+		};
+		DC213E5F27D9EDD800B27C05 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DC213E6327D9EE4D00B27C05 /* Item.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		DC213E6027D9EDE100B27C05 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DC213E6527D9EE5700B27C05 /* ItemDescription.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		DC213E6727D9EEDB00B27C05 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				DC213E6E27D9EF4600B27C05 /* ItemTypesServiceProtocol.swift */,
+				DC213E7027D9EF8000B27C05 /* BlizzardItemTypesService.swift */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
+		DC213E6827D9EEEC00B27C05 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				DC213E7227D9EFCF00B27C05 /* ItemsServiceProtocol.swift */,
+				DC213E7427D9EFD900B27C05 /* BlizzardItemsService.swift */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
+		DC213E6927D9EEF000B27C05 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				DC213E7627D9EFE300B27C05 /* ItemDescriptionServiceProtocol.swift */,
+				DC213E7827D9EFEF00B27C05 /* BlizzardItemDescriptionService.swift */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
+		DC213E6B27D9EF1600B27C05 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DC213E5B27D8CCF600B27C05 /* ItemTypesViewController.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		DC213E6C27D9EF2200B27C05 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DC213E7A27D9F03200B27C05 /* ItemsViewController.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		DC213E6D27D9EF2600B27C05 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DC213E7C27D9F03B00B27C05 /* ItemDescriptionViewController.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		DC213E8227DB153E00B27C05 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				DC213E7E27DB134F00B27C05 /* ApiRepository.swift */,
+			);
+			name = Networking;
+			sourceTree = "<group>";
+		};
+		DC213E8527DB155000B27C05 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DC213E8627DB155700B27C05 /* IconSize.swift */,
+				DC213E8827DB156100B27C05 /* OAuthTokenResponse.swift */,
+				DC213E8A27DB157200B27C05 /* ApiRepositoryError.swift */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -127,7 +305,6 @@
 			files = (
 				DC213E4C27D8A24C00B27C05 /* LaunchScreen.storyboard in Resources */,
 				DC213E4927D8A24C00B27C05 /* Assets.xcassets in Resources */,
-				DC213E4727D8A24C00B27C05 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,23 +315,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DC213E4427D8A24C00B27C05 /* ViewController.swift in Sources */,
+				DC213E6F27D9EF4600B27C05 /* ItemTypesServiceProtocol.swift in Sources */,
+				DC213E7727D9EFE300B27C05 /* ItemDescriptionServiceProtocol.swift in Sources */,
+				DC213E7327D9EFCF00B27C05 /* ItemsServiceProtocol.swift in Sources */,
+				DC213E6627D9EE5700B27C05 /* ItemDescription.swift in Sources */,
 				DC213E4027D8A24C00B27C05 /* AppDelegate.swift in Sources */,
+				DC213E8B27DB157200B27C05 /* ApiRepositoryError.swift in Sources */,
+				DC213E6227D9EE4600B27C05 /* ItemType.swift in Sources */,
 				DC213E4227D8A24C00B27C05 /* SceneDelegate.swift in Sources */,
+				DC213E7527D9EFD900B27C05 /* BlizzardItemsService.swift in Sources */,
+				DC213E7127D9EF8000B27C05 /* BlizzardItemTypesService.swift in Sources */,
+				DC213E7D27D9F03B00B27C05 /* ItemDescriptionViewController.swift in Sources */,
+				DC213E6427D9EE4D00B27C05 /* Item.swift in Sources */,
+				DC213E7F27DB134F00B27C05 /* ApiRepository.swift in Sources */,
+				DC213E7B27D9F03200B27C05 /* ItemsViewController.swift in Sources */,
+				DC213E8727DB155700B27C05 /* IconSize.swift in Sources */,
+				DC213E5C27D8CCF600B27C05 /* ItemTypesViewController.swift in Sources */,
+				DC213E7927D9EFEF00B27C05 /* BlizzardItemDescriptionService.swift in Sources */,
+				DC213E8927DB156100B27C05 /* OAuthTokenResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		DC213E4527D8A24C00B27C05 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DC213E4627D8A24C00B27C05 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		DC213E4A27D8A24C00B27C05 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -294,9 +478,9 @@
 				INFOPLIST_FILE = Diablo3ItemsBrowser/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -306,7 +490,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -322,9 +506,9 @@
 				INFOPLIST_FILE = Diablo3ItemsBrowser/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -334,7 +518,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
