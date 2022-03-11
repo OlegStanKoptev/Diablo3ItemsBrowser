@@ -52,6 +52,7 @@
 		DC213E8627DB155700B27C05 /* IconSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconSize.swift; sourceTree = "<group>"; };
 		DC213E8827DB156100B27C05 /* OAuthTokenResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthTokenResponse.swift; sourceTree = "<group>"; };
 		DC213E8A27DB157200B27C05 /* ApiRepositoryError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiRepositoryError.swift; sourceTree = "<group>"; };
+		DC213E8C27DB191600B27C05 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +69,7 @@
 		DC213E3327D8A24C00B27C05 = {
 			isa = PBXGroup;
 			children = (
+				DC213E8C27DB191600B27C05 /* README.md */,
 				DC213E3E27D8A24C00B27C05 /* Diablo3ItemsBrowser */,
 				DC213E3D27D8A24C00B27C05 /* Products */,
 			);
