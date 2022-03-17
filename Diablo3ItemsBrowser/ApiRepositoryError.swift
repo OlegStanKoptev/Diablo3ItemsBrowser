@@ -8,5 +8,6 @@
 import Foundation
 
 enum ApiRepositoryError: Error {
+    case requestError(Error)
     case noData(Int)
 }

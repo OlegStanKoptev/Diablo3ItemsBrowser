@@ -32,8 +32,8 @@ class ApiRepository {
         configure(self)
     }
     
-    func getToken(completionHandler: @escaping () -> ()) {
-        guard accessToken == nil else { completionHandler(); return }
+    func getToken(completionHandler: @escaping (ApiRepositoryError?) -> ()) {
+        guard accessToken == nil else { completionHandler(nil); return }
         let tokenURL = authURL.appendingPathComponent("token")
         var request = URLRequest(url: tokenURL)
         request.httpMethod = "POST"
@@ -49,20 +49,29 @@ class ApiRepository {
                 let response = try JSONDecoder().decode(OAuthTokenResponse.self, from: data)
                 self.accessToken = response.accessToken
                 NSLog("received token: \(response.accessToken ?? "nil")")
-                completionHandler()
+                completionHandler(nil)
             } catch {
-                fatalError()
+                completionHandler(.requestError(error))
             }
         } onFailure: { error in
-            fatalError()
+            completionHandler(.requestError(error))
         }
     }
     
     func getData(
         from path: String,
-        completionHandler: @escaping (Result<Data, Error>) -> Void
+        completionHandler: @escaping (Result<Data, ApiRepositoryError>) -> Void
     ) {
-        guard let token = accessToken else { getToken { self.getData(from: path, completionHandler: completionHandler) }; return }
+        guard let token = accessToken else {
+            getToken { error in
+                if let error = error {
+                    completionHandler(.failure(error))
+                } else {
+                    self.getData(from: path, completionHandler: completionHandler)
+                }
+            }
+            return
+        }
         let headers = ["Authorization": "Bearer \(token)"]
         let itemTypesURL = dataURL.appendingPathComponent(path)
         var request = URLRequest(url: itemTypesURL)
@@ -70,19 +79,19 @@ class ApiRepository {
         getRequest(request) { data in
             completionHandler(.success(data))
         } onFailure: { error in
-            completionHandler(.failure(error))
+            completionHandler(.failure(.requestError(error)))
         }
     }
     
     func getIconData(
         of iconName: String,
         size: IconSize,
-        completionHandler: @escaping (Result<Data, Error>) -> Void
+        completionHandler: @escaping (Result<Data, ApiRepositoryError>) -> Void
     ) {
         getRequest(URLRequest(url: iconURL(of: iconName, size: size))) { data in
             completionHandler(.success(data))
         } onFailure: { error in
-            completionHandler(.failure(error))
+            completionHandler(.failure(.requestError(error)))
         }
     }
     

@@ -7,10 +7,10 @@
 
 import Foundation
 
-typealias ItemTypesCompletionHandler = (Error?) -> Void
-typealias ItemsCountCompletionHandler = (ItemType, Error?) -> Void
+typealias ItemTypesCompletionHandler = (DataProviderError?) -> Void
+typealias ItemsCountCompletionHandler = (ItemType, DataProviderError?) -> Void
 
-protocol ItemTypesServiceProtocol {
+protocol ItemTypesServiceProtocol: DataProvider {
     func retrieveItemTypes(completionHandler: @escaping ItemTypesCompletionHandler)
     func retrieveItemsCount(for itemType: ItemType, completionHandler: @escaping ItemsCountCompletionHandler)
 }
