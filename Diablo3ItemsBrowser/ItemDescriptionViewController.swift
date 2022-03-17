@@ -53,6 +53,7 @@ class ItemDescriptionViewController: LoadableContentViewController {
         
         view.backgroundColor = .systemGroupedBackground
         
+        hideContent()
         handleRefreshControl(fullScreen: true)
     }
     

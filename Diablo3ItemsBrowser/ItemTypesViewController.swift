@@ -86,6 +86,7 @@ final class ItemTypesViewController: LoadableContentViewController {
 
         view.backgroundColor = .systemGroupedBackground
 
+        hideContent()
         handleRefreshControl(fullScreen: true)
     }
     

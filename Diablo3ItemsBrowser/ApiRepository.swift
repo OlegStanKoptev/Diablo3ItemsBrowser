@@ -13,7 +13,13 @@ class ApiRepository {
     static let shared = ApiRepository()
 
     // MARK: - Public Fields
-    var urlSession = URLSession.shared
+    var urlSession: URLSession = {
+        let config = URLSessionConfiguration.default
+        config.waitsForConnectivity = true
+        config.timeoutIntervalForResource = 300
+
+        return URLSession(configuration: config)
+    }()
     var authURL: URL!
     var dataURL: URL!
     var iconsURL: URL!
@@ -23,6 +29,8 @@ class ApiRepository {
     
     // MARK: - Private Fields
     private var accessToken: String?
+    private var gettingAccessToken = false
+    private var accessTokenWaiters = [() -> Void]()
     private func iconURL(of name: String, size: IconSize) -> URL {
         iconsURL.appendingPathComponent(size.rawValue).appendingPathComponent(name).appendingPathExtension("png")
     }
@@ -47,8 +55,11 @@ class ApiRepository {
         getRequest(request) { data in
             do {
                 let response = try JSONDecoder().decode(OAuthTokenResponse.self, from: data)
+                self.gettingAccessToken = false
                 self.accessToken = response.accessToken
                 NSLog("received token: \(response.accessToken ?? "nil")")
+                self.accessTokenWaiters.forEach { $0() }
+                self.accessTokenWaiters.removeAll()
                 completionHandler(nil)
             } catch {
                 completionHandler(.requestError(error))
@@ -63,11 +74,13 @@ class ApiRepository {
         completionHandler: @escaping (Result<Data, ApiRepositoryError>) -> Void
     ) {
         guard let token = accessToken else {
-            getToken { error in
-                if let error = error {
-                    completionHandler(.failure(error))
-                } else {
-                    self.getData(from: path, completionHandler: completionHandler)
+            accessTokenWaiters.append { self.getData(from: path, completionHandler: completionHandler) }
+            if !gettingAccessToken {
+                gettingAccessToken = true
+                getToken { error in
+                    if let error = error {
+                        completionHandler(.failure(error))
+                    }
                 }
             }
             return
