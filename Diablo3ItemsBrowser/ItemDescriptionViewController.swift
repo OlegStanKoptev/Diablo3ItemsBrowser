@@ -120,6 +120,13 @@ extension ItemDescriptionViewController: UITableViewDataSource {
         return itemDescription.count + 1
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath.row {
+        case 0: return 144
+        default: return UITableView.automaticDimension
+        }
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "IconCell", for: indexPath) as! ItemDescriptionIconTableViewCell
