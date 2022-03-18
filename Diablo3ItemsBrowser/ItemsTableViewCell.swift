@@ -24,8 +24,12 @@ class ItemsTableViewCell: UITableViewCell {
         id = UILabel()
         iconView = UIImageView()
         
+        name.font = .preferredFont(forTextStyle: .body)
+        name.adjustsFontForContentSizeCategory = true
+        
         id.font = .preferredFont(forTextStyle: .caption1)
         id.textColor = .secondaryLabel
+        id.adjustsFontForContentSizeCategory = true
         
         iconView.contentMode = .scaleAspectFit
         iconView.layer.cornerRadius = 4

@@ -23,11 +23,14 @@ class ItemTypesCollectionViewCell: UICollectionViewCell {
 
         textLabel.textAlignment = .center
         textLabel.numberOfLines = 2
+        textLabel.font = .preferredFont(forTextStyle: .body)
+        textLabel.adjustsFontForContentSizeCategory = true
 
         detailTextLabel.textAlignment = .center
         detailTextLabel.numberOfLines = 2
         detailTextLabel.textColor = .secondaryLabel
         detailTextLabel.font = .preferredFont(forTextStyle: .footnote)
+        detailTextLabel.adjustsFontForContentSizeCategory = true
 
         let stack = UIStackView()
         stack.axis = .vertical

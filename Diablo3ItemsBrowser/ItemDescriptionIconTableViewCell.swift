@@ -23,11 +23,12 @@ class ItemDescriptionIconTableViewCell: UITableViewCell {
         contentView.addSubview(iconView)
         
         NSLayoutConstraint.activate([
-            iconView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            iconView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
+            iconView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
+            iconView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
+            iconView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             iconView.heightAnchor.constraint(equalTo: iconView.widthAnchor),
             
-            iconView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            iconView.heightAnchor.constraint(equalToConstant: 144),
         ])
     }
     

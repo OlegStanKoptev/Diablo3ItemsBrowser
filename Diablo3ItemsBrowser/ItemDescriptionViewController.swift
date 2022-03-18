@@ -139,10 +139,6 @@ extension ItemDescriptionViewController: UITableViewDataSource {
 }
 
 extension ItemDescriptionViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        indexPath.row == 0 ? 120 : UITableView.automaticDimension
-    }
-    
     func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         if let data = dataForCell(at: indexPath) {
             let value = data.1
