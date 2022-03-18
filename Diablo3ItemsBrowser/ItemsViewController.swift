@@ -42,6 +42,8 @@ class ItemsViewController: LoadableContentViewController {
         
         view.addSubview(tableView)
         
+        guard let itemTypeId = itemType.id else { preconditionFailure() }
+        
         fetchedItemsControllerDelegate = FetchedControllerDelegateForTableView(tableView)
         fetchedItemsController = NSFetchResultsControllerHelper.shared.makeFetchedResultsController(
             name: "Item",
@@ -49,7 +51,7 @@ class ItemsViewController: LoadableContentViewController {
                 NSSortDescriptor(key: "name", ascending: true),
                 NSSortDescriptor(key: "id", ascending: true)
             ],
-            predicate: NSPredicate(format: "itemType == %@", itemType.id!),
+            predicate: NSPredicate(format: "itemType == %@", itemTypeId),
             delegate: fetchedItemsControllerDelegate
         )
         

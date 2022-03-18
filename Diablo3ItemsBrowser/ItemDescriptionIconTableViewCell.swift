@@ -28,7 +28,7 @@ class ItemDescriptionIconTableViewCell: UITableViewCell {
             iconView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             iconView.heightAnchor.constraint(equalTo: iconView.widthAnchor),
             
-            iconView.heightAnchor.constraint(equalToConstant: 144),
+            iconView.heightAnchor.constraint(equalToConstant: 120),
         ])
     }
     

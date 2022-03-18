@@ -44,10 +44,12 @@ class ItemDescriptionViewController: LoadableContentViewController {
         
         view.addSubview(tableView)
         
+        guard let itemId = item.id else { preconditionFailure() }
+        
         fetchedItemDescriptionControllerDelegate = self
         fetchedItemDescriptionController = NSFetchResultsControllerHelper.shared.makeFetchedResultsController(
             name: "ItemDescription",
-            predicate: NSPredicate(format: "id == %@", item.id!),
+            predicate: NSPredicate(format: "id == %@", itemId),
             delegate: fetchedItemDescriptionControllerDelegate
         )
         
@@ -132,7 +134,8 @@ extension ItemDescriptionViewController: UITableViewDataSource {
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ItemDescriptionTableViewCell
-            cell.updateCellContent(with: dataForCell(at: indexPath)!)
+            guard let data = dataForCell(at: indexPath) else { preconditionFailure() }
+            cell.updateCellContent(with: data)
             return cell
         }
     }

@@ -79,7 +79,10 @@ extension ItemDescription {
             ("Flavor Text", flavorText),
         ]
         
-        return result.filter { $0.1 != nil }.map { ($0.0, $0.1!) }
+        return result.compactMap { (key, optionalValue) in
+            if let value = optionalValue { return (key, value) }
+            return nil
+        }
     }
     
     /// Set Description sometimes doesn't have newline symbols, as they should be (presented in html version).

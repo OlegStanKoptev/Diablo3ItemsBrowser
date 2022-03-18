@@ -36,15 +36,16 @@ class FetchedControllerDelegateForCollectionView: NSObject, NSFetchedResultsCont
               }
         }
         
-        var changeSet = [IndexPath]()
+        var optionalChangeSet = [IndexPath?]()
         
         switch type {
-        case .insert: changeSet = [newIndexPath!]
-        case .delete: changeSet = [indexPath!]
-        case .move: changeSet = [indexPath!, newIndexPath!]
-        case .update: changeSet = [indexPath!]
+        case .insert: optionalChangeSet = [newIndexPath]
+        case .delete: optionalChangeSet = [indexPath]
+        case .move: optionalChangeSet = [indexPath, newIndexPath]
+        case .update: optionalChangeSet = [indexPath]
         @unknown default: fatalError()
         }
+        let changeSet = optionalChangeSet.compactMap { $0 }
         
         _objectChanges.updateValue((_objectChanges[type] ?? []) + [changeSet], forKey: type)
     }

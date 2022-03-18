@@ -7,6 +7,11 @@
 
 import UIKit
 
+/// Custom view controller with fullscreen spinner loader before showing data and error handler.
+/// Must be overrided methods:
+///     - updateData
+///     - hideContent
+///     - showContent
 class LoadableContentViewController: UIViewController {
     
     private var activityIndicator: UIActivityIndicatorView!
@@ -68,9 +73,4 @@ class LoadableContentViewController: UIViewController {
     func updateData(completionHandler: @escaping (Bool) -> Void) { fatalError("Must override!") }
     func hideContent() { fatalError("Must override!") }
     func showContent() { fatalError("Must override!") }
-}
-
-
-class LoadableContentViewController_new: UIViewController {
-    
 }
