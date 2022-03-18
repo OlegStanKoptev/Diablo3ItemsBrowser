@@ -7,7 +7,11 @@
 
 import UIKit
 
-struct BlizzardItemDescriptionService: ItemDescriptionServiceProtocol {
+class BlizzardItemDescriptionService: ItemDescriptionServiceProtocol {
+    internal init(iconProvider: IconProvider) {
+        self.iconProvider = iconProvider
+    }
+    
     var iconProvider: IconProvider
     private let decoder = JSONDecoder()
     
@@ -20,7 +24,7 @@ struct BlizzardItemDescriptionService: ItemDescriptionServiceProtocol {
             switch result {
             case .success(let data):
                 NSFetchResultsControllerHelper.shared.performOnBackgroundContext { context in
-                    decoder.userInfo[.managedObjectContext] = context
+                    self.decoder.userInfo[.managedObjectContext] = context
                     _ = try self.decoder.decode(ItemDescription.self, from: data)
                 } completionHandler: { completionHandler($0) }
             case .failure(let error):

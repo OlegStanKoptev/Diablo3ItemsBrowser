@@ -7,10 +7,14 @@
 
 import UIKit
 
-struct BlizzardItemsService: ItemsServiceProtocol {
+class BlizzardItemsService: ItemsServiceProtocol {
+    internal init(iconProvider: IconProvider) {
+        self.iconProvider = iconProvider
+    }
+    
     var iconProvider: IconProvider
     private let decoder = JSONDecoder()
-    
+        
     func retrieveItems(of itemType: ItemType, completionHandler: @escaping ItemsCompletionHandler) {
         guard let path = itemType.path else {
             completionHandler(.withMessage("No path provided"))
@@ -20,8 +24,8 @@ struct BlizzardItemsService: ItemsServiceProtocol {
             switch result {
             case .success(let data):
                 NSFetchResultsControllerHelper.shared.performOnBackgroundContext { context in
-                    decoder.userInfo[.managedObjectContext] = context
-                    decoder.userInfo[.itemTypeForItem] = itemType.id
+                    self.decoder.userInfo[.managedObjectContext] = context
+                    self.decoder.userInfo[.itemTypeForItem] = itemType.id
                     _ = try self.decoder.decode([Item].self, from: data)
                 } completionHandler: { completionHandler($0) }
             case .failure(let error):

@@ -12,5 +12,5 @@ typealias ItemsCountCompletionHandler = (ItemType, DataProviderError?) -> Void
 
 protocol ItemTypesServiceProtocol: DataProvider {
     func retrieveItemTypes(completionHandler: @escaping ItemTypesCompletionHandler)
-    func retrieveItemsCount(for itemType: ItemType, completionHandler: @escaping ItemsCountCompletionHandler)
+    mutating func retrieveItemsCount(for itemType: ItemType, completionHandler: @escaping ItemsCountCompletionHandler)
 }

@@ -140,7 +140,7 @@ extension ItemTypesViewController: UICollectionViewDataSource {
         let itemType = fetchedItemTypesController.object(at: indexPath)
         cell.updateCellContent(with: itemType, highlighted: highlightedCellPath == indexPath)
         
-        if (itemType.areItemsNotLoaded) {
+        if itemType.areItemsNotLoaded {
             dataProvider.retrieveItemsCount(for: itemType) { itemType, error in
                 if let error = error { print(error.localizedDescription) }
                 self.sizesStorage[indexPath.item] = itemType.itemsCount > self.cellSizeDeterminator ? .large : .small

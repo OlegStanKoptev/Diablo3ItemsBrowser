@@ -8,14 +8,15 @@
 import Foundation
 import CoreData
 
-struct BlizzardItemTypesService: ItemTypesServiceProtocol {
+class BlizzardItemTypesService: ItemTypesServiceProtocol {
     private var decoder = JSONDecoder()
+    private var currentRequests: [String: ItemsCountCompletionHandler] = [:]
     func retrieveItemTypes(completionHandler: @escaping ItemTypesCompletionHandler) {
         ServiceContext.shared.repository.getData(from: ItemType.path) { result in
             switch result {
             case .success(let data):
                 NSFetchResultsControllerHelper.shared.performOnBackgroundContext { context in
-                    decoder.userInfo[.managedObjectContext] = context
+                    self.decoder.userInfo[.managedObjectContext] = context
                     _ = try self.decoder.decode([ItemType].self, from: data)
                 } completionHandler: { completionHandler($0) }
             case .failure(let error):
@@ -23,11 +24,15 @@ struct BlizzardItemTypesService: ItemTypesServiceProtocol {
             }
         }
     }
+    
     func retrieveItemsCount(for itemType: ItemType, completionHandler: @escaping ItemsCountCompletionHandler) {
         guard let path = itemType.path else {
             completionHandler(itemType, .withMessage("No path provided"))
             return
         }
+        let isAlreadyPlanned = currentRequests[path] != nil
+        currentRequests[path] = completionHandler
+        if isAlreadyPlanned { return }
         ServiceContext.shared.repository.getData(from: path) { result in
             switch result {
             case .success(let data):
@@ -37,7 +42,7 @@ struct BlizzardItemTypesService: ItemTypesServiceProtocol {
                         throw DataProviderError.withMessage("Items count request failed: body is not an array")
                     }
                     itemType.itemsCount = Int32(jsonArray.count)
-                } completionHandler: { completionHandler(itemType, $0) }
+                } completionHandler: { self.currentRequests[path]?(itemType, $0) }
             case .failure(let error):
                 completionHandler(itemType, .innerError(error))
             }
