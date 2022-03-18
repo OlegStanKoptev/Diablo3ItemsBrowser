@@ -16,7 +16,7 @@ class ApiRepository {
     var urlSession: URLSession = {
         let config = URLSessionConfiguration.default
         config.waitsForConnectivity = true
-        config.timeoutIntervalForResource = 300
+        config.timeoutIntervalForResource = 120
 
         return URLSession(configuration: config)
     }()
@@ -30,12 +30,12 @@ class ApiRepository {
     // MARK: - Private Fields
     private var accessToken: String?
     private var gettingAccessToken = false
-    private var accessTokenWaiters = [() -> Void]()
+    private var accessTokenWaiters = [(String, (Result<Data, ApiRepositoryError>) -> Void)]()
     private func iconURL(of name: String, size: IconSize) -> URL {
         iconsURL.appendingPathComponent(size.rawValue).appendingPathComponent(name).appendingPathExtension("png")
     }
-    // MARK: - Public Methods
     
+    // MARK: - Public Methods
     func configure(configure: (ApiRepository) -> Void) {
         configure(self)
     }
@@ -55,11 +55,8 @@ class ApiRepository {
         getRequest(request) { data in
             do {
                 let response = try JSONDecoder().decode(OAuthTokenResponse.self, from: data)
-                self.gettingAccessToken = false
                 self.accessToken = response.accessToken
                 NSLog("received token: \(response.accessToken ?? "nil")")
-                self.accessTokenWaiters.forEach { $0() }
-                self.accessTokenWaiters.removeAll()
                 completionHandler(nil)
             } catch {
                 completionHandler(.requestError(error))
@@ -74,13 +71,17 @@ class ApiRepository {
         completionHandler: @escaping (Result<Data, ApiRepositoryError>) -> Void
     ) {
         guard let token = accessToken else {
-            accessTokenWaiters.append { self.getData(from: path, completionHandler: completionHandler) }
+            accessTokenWaiters.append((path, completionHandler))
             if !gettingAccessToken {
                 gettingAccessToken = true
                 getToken { error in
+                    self.gettingAccessToken = false
                     if let error = error {
-                        completionHandler(.failure(error))
+                        self.accessTokenWaiters.forEach { $0.1(.failure(error)) }
+                    } else {
+                        self.accessTokenWaiters.forEach { self.getData(from: $0.0, completionHandler: $0.1) }
                     }
+                    self.accessTokenWaiters.removeAll()
                 }
             }
             return

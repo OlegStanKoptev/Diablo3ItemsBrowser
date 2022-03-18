@@ -23,7 +23,7 @@ class MosaicLayout: UICollectionViewLayout {
     var sizesStorage: [Int: CellSize] = [:]
     private var contentBounds = CGRect.zero
     private var cachedAttributes = [UICollectionViewLayoutAttributes]()
-    private let horizontalPadding: CGFloat = 16
+    private let _horizontalPadding: CGFloat = 16
     private let itemPadding: CGFloat = 4
     
     /// - Tag: PrepareMosaicLayout
@@ -34,6 +34,8 @@ class MosaicLayout: UICollectionViewLayout {
         
         cachedAttributes.removeAll()
         contentBounds = CGRect(origin: .zero, size: collectionView.bounds.size)
+        
+        let horizontalPadding = _horizontalPadding + collectionView.safeAreaInsets.left 
         
         let count = collectionView.numberOfItems(inSection: 0)
         

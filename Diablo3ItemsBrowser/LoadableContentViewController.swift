@@ -53,10 +53,13 @@ class LoadableContentViewController: UIViewController {
     }
     
     func updateDataErrorHandler(error: DataProviderError?, onAlertClose: @escaping () -> Void = {}, completionHandler: @escaping (Bool) -> Void) -> Void {
+        DispatchQueue.main.async {
+            self.stopFullscreenSpinner()
+        }
         if let error = error {
-            print("fetchItems error: \(error.description)")
+            print("fetchItems error: \(error.localizedDescription)")
             completionHandler(true)
-            self.presentAlert(header: "Error", text: error.description, onClose: onAlertClose)
+            self.presentAlert(header: "Error", text: error.localizedDescription, onClose: onAlertClose)
         } else {
             completionHandler(false)
         }
@@ -65,4 +68,9 @@ class LoadableContentViewController: UIViewController {
     func updateData(completionHandler: @escaping (Bool) -> Void) { fatalError("Must override!") }
     func hideContent() { fatalError("Must override!") }
     func showContent() { fatalError("Must override!") }
+}
+
+
+class LoadableContentViewController_new: UIViewController {
+    
 }

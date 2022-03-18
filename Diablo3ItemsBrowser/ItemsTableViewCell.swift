@@ -69,11 +69,11 @@ class ItemsTableViewCell: UITableViewCell {
     func startLoadingAnimation() {
         guard !isLoading else { return }
         self.isPlannedToShimmer = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
             guard let self = self else { return }
             if self.isPlannedToShimmer {
                 self.isPlannedToShimmer = false
-                self.iconView.backgroundColor = .secondarySystemFill
+                self.iconView.backgroundColor = .tertiarySystemFill
                 self.iconView.startShimmeringAnimation()
             }
         }

@@ -41,7 +41,7 @@ final class ItemTypesViewController: LoadableContentViewController {
     
     private var itemsConstraints: [NSLayoutConstraint] = []
     
-    private var verticalIndiciatorInset: UIEdgeInsets!
+    private var verticalIndiciatorInsets: UIEdgeInsets!
     
     override func viewDidLoad() {
         
@@ -53,7 +53,7 @@ final class ItemTypesViewController: LoadableContentViewController {
         collectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: collectionViewLayout)
         collectionView.backgroundColor = .systemGroupedBackground
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
-        verticalIndiciatorInset = collectionView.verticalScrollIndicatorInsets
+        collectionView.showsHorizontalScrollIndicator = false
         collectionView.alwaysBounceVertical = true
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -88,6 +88,12 @@ final class ItemTypesViewController: LoadableContentViewController {
 
         hideContent()
         handleRefreshControl(fullScreen: true)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        verticalIndiciatorInsets = self.collectionView.verticalScrollIndicatorInsets
     }
     
     @objc func handleRefreshControl(fullScreen: Bool = false) {
@@ -155,10 +161,18 @@ extension ItemTypesViewController: UICollectionViewDelegate {
         itemsVC.dataProvider = ServiceContext.shared.itemsService
         itemsVC.itemType = fetchedItemTypesController.object(at: indexPath)
         itemsVC.onViewDidAppear = {
-            collectionView.contentInset.bottom = itemsVC.view.frame.height
-            collectionView.verticalScrollIndicatorInsets.bottom = itemsVC.view.frame.height
+            UIView.animate(withDuration: 0.5) {
+                collectionView.contentInset.bottom = itemsVC.view.frame.height
+                collectionView.verticalScrollIndicatorInsets = UIEdgeInsets(
+                    top: self.verticalIndiciatorInsets.top,
+                    left: self.verticalIndiciatorInsets.left,
+                    bottom: itemsVC.view.frame.height,
+                    right: -self.view.safeAreaInsets.right
+                )
+            }
             collectionView.scrollToItem(at: indexPath, at: .centeredVertically, animated: true)
         }
+        itemsVC.popViewController = { self.closeItemsController(animated: true) }
         
         itemsVC.view.translatesAutoresizingMaskIntoConstraints = false
         
@@ -232,7 +246,7 @@ extension ItemTypesViewController: UICollectionViewDelegate {
             UIView.animate(withDuration: 0.5) {
                 hideUnderScreen()
                 self.collectionView.contentInset.bottom = 30
-                self.collectionView.verticalScrollIndicatorInsets = self.verticalIndiciatorInset
+                self.collectionView.verticalScrollIndicatorInsets = self.verticalIndiciatorInsets
             } completion: { finished in
                 guard finished, itemsController == self.itemsController else { return }
                 removeEnds()

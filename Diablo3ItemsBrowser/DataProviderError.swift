@@ -7,14 +7,14 @@
 
 import Foundation
 
-enum DataProviderError: Error {
+enum DataProviderError: LocalizedError {
     case innerError(Error)
     case withMessage(String)
     
-    var description: String {
+    var errorDescription: String? {
         switch self {
-        case .innerError(let error): return "\(error.localizedDescription)"
-        case .withMessage(let message): return "\(message)"
+        case .innerError(let error): return error.localizedDescription
+        case .withMessage(let message): return "DataProviderError: \(message)"
         }
     }
 }

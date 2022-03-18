@@ -77,7 +77,9 @@ class ItemDescriptionViewController: LoadableContentViewController {
     override func updateData(completionHandler: @escaping (Bool) -> Void) {
         dataProvider.retrieveItemDescription(of: item) { error in
             self.updateDataErrorHandler(error: error) {
-                self.navigationController?.popViewController(animated: true)
+                if (self.fetchedItemDescriptionController.fetchedObjects?.isEmpty ?? true) {
+                    self.navigationController?.popViewController(animated: true)
+                }
             } completionHandler: { hadError in
                 completionHandler(hadError)
             }
@@ -96,6 +98,13 @@ class ItemDescriptionViewController: LoadableContentViewController {
         guard indexPath.row > 0 else { return nil }
         return itemDescription[indexPath.row - 1]
     }
+    
+    func extractDescriptionFromDB(_ anObject: Any? = nil) {
+        let anObject = (anObject as? ItemDescription) ?? fetchedItemDescriptionController.fetchedObjects?.first
+        if itemDescription.isEmpty {
+            itemDescription = anObject?.getDescriptionAsKeyAndValue() ?? []
+        }
+    }
 }
 
 extension ItemDescriptionViewController: UITableViewDataSource {
@@ -105,6 +114,7 @@ extension ItemDescriptionViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if fetchedItemDescriptionController.fetchedObjects?.first == nil { return 0 }
+        extractDescriptionFromDB()
         return itemDescription.count + 1
     }
     
@@ -153,7 +163,7 @@ extension ItemDescriptionViewController: UITableViewDelegate {
 
 extension ItemDescriptionViewController: NSFetchedResultsControllerDelegate {
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        itemDescription = (anObject as? ItemDescription)?.getDescriptionAsKeyAndValue() ?? []
+        extractDescriptionFromDB(anObject)
         tableView.reloadData()
     }
 }

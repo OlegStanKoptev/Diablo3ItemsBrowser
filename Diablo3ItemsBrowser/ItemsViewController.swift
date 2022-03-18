@@ -13,6 +13,7 @@ class ItemsViewController: LoadableContentViewController {
     var tableView: UITableView!
     var itemType: ItemType!
     var onViewDidAppear: () -> Void = {}
+    var popViewController: () -> Void = {}
     private var onViewDidAppearFired = false
     
     private var fetchedItemsControllerDelegate: NSFetchedResultsControllerDelegate!
@@ -97,7 +98,9 @@ class ItemsViewController: LoadableContentViewController {
     override func updateData(completionHandler: @escaping (Bool) -> Void) {
         dataProvider.retrieveItems(of: itemType) { error in
             self.updateDataErrorHandler(error: error) {
-                self.navigationController?.popViewController(animated: true)
+                if (self.fetchedItemsController.fetchedObjects?.isEmpty ?? true) {
+                    self.popViewController()
+                }
             } completionHandler: { hadError in
                 completionHandler(hadError)
             }
@@ -130,7 +133,7 @@ extension ItemsViewController: UITableViewDataSource {
         dataProvider.retrieveIcon(for: item, forceUpdate: updateCachedImage) { image, error in
             self.updateCachedImage = false
             if let error = error {
-                NSLog(error.description)
+                NSLog(error.localizedDescription)
             }
             DispatchQueue.main.async {
                 cell.stopLoadingAnimationAndSetContentImage(image)
