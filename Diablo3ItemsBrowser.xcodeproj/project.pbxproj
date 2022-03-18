@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		974F171227E1FD48000FB94E /* IconProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974F171127E1FD48000FB94E /* IconProvider.swift */; };
+		979CBA4B27E4AE2B00F47FAF /* TokenStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979CBA4A27E4AE2B00F47FAF /* TokenStorage.swift */; };
 		97A0374527E30DA90065D82B /* ServiceContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A0374427E30DA90065D82B /* ServiceContext.swift */; };
 		97A0374727E3479A0065D82B /* ItemsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A0374627E3479A0065D82B /* ItemsTableViewCell.swift */; };
 		97A0374927E348BD0065D82B /* BlizzardIconProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A0374827E348BD0065D82B /* BlizzardIconProvider.swift */; };
@@ -51,6 +52,7 @@
 
 /* Begin PBXFileReference section */
 		974F171127E1FD48000FB94E /* IconProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconProvider.swift; sourceTree = "<group>"; };
+		979CBA4A27E4AE2B00F47FAF /* TokenStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenStorage.swift; sourceTree = "<group>"; };
 		97A0374427E30DA90065D82B /* ServiceContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceContext.swift; sourceTree = "<group>"; };
 		97A0374627E3479A0065D82B /* ItemsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsTableViewCell.swift; sourceTree = "<group>"; };
 		97A0374827E348BD0065D82B /* BlizzardIconProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlizzardIconProvider.swift; sourceTree = "<group>"; };
@@ -308,6 +310,7 @@
 			isa = PBXGroup;
 			children = (
 				DC213E7E27DB134F00B27C05 /* ApiRepository.swift */,
+				979CBA4A27E4AE2B00F47FAF /* TokenStorage.swift */,
 			);
 			name = Networking;
 			sourceTree = "<group>";
@@ -418,6 +421,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC213E6F27D9EF4600B27C05 /* ItemTypesServiceProtocol.swift in Sources */,
+				979CBA4B27E4AE2B00F47FAF /* TokenStorage.swift in Sources */,
 				974F171227E1FD48000FB94E /* IconProvider.swift in Sources */,
 				DC213E7727D9EFE300B27C05 /* ItemDescriptionServiceProtocol.swift in Sources */,
 				97A0374527E30DA90065D82B /* ServiceContext.swift in Sources */,

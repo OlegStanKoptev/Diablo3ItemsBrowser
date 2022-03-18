@@ -14,23 +14,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        ApiRepository.shared.configure {
+        let repo = ApiRepository().configured {
             $0.authURL =  URL(string: "https://eu.battle.net/oauth")!
             $0.dataURL = URL(string: "https://eu.api.blizzard.com/d3/data/")!
             $0.iconsURL = URL(string: "http://media.blizzard.com/d3/icons/items/")!
             $0.clientId = "6e8f77dda6f54584a903f946fbce3a1c"
             $0.clientSecret = "Zru74EK8ywVBmoAf38A3VAwoSPAluRaO"
+            $0.tokenStorage = .init()
         }
         
         ServiceContext.configure {
-            $0.repository = .shared
-            $0.persistentContainer = .shared
+            $0.repository = repo
+            $0.repository.tokenStorage = .init()
+            $0.persistentContainer = .newContainerForCurrentProject()
             $0.itemTypesService = BlizzardItemTypesService()
             $0.itemsService = BlizzardItemsService(iconProvider: BlizzardIconProvider())
             $0.itemDescriptionService = BlizzardItemDescriptionService(iconProvider: BlizzardIconProvider())
         }
-        
-        NSFetchResultsControllerHelper.shared.persistentContainer = .shared
         
         return true
     }

@@ -6,17 +6,14 @@
 //
 
 import Foundation
+import UIKit
 
 class ApiRepository {
-    // MARK: Singleton, yeeee
-    private init() {}
-    static let shared = ApiRepository()
-
     // MARK: - Public Fields
     var urlSession: URLSession = {
         let config = URLSessionConfiguration.default
         config.waitsForConnectivity = true
-        config.timeoutIntervalForResource = 120
+        config.timeoutIntervalForResource = 10
 
         return URLSession(configuration: config)
     }()
@@ -27,8 +24,10 @@ class ApiRepository {
     var clientId: String = ""
     var clientSecret: String = ""
     
+    var tokenStorage: TokenStorage!
+    
     // MARK: - Private Fields
-    private var accessToken: String?
+//    private var accessToken: String?
     private var gettingAccessToken = false
     private var accessTokenWaiters = [(String, (Result<Data, ApiRepositoryError>) -> Void)]()
     private func iconURL(of name: String, size: IconSize) -> URL {
@@ -36,12 +35,12 @@ class ApiRepository {
     }
     
     // MARK: - Public Methods
-    func configure(configure: (ApiRepository) -> Void) {
+    func configured(configure: (ApiRepository) -> Void) -> Self {
         configure(self)
+        return self
     }
     
-    func getToken(completionHandler: @escaping (ApiRepositoryError?) -> ()) {
-        guard accessToken == nil else { completionHandler(nil); return }
+    private func updateAccessToken(completionHandler: @escaping (ApiRepositoryError?) -> ()) {
         let tokenURL = authURL.appendingPathComponent("token")
         var request = URLRequest(url: tokenURL)
         request.httpMethod = "POST"
@@ -55,8 +54,8 @@ class ApiRepository {
         getRequest(request) { data in
             do {
                 let response = try JSONDecoder().decode(OAuthTokenResponse.self, from: data)
-                self.accessToken = response.accessToken
                 NSLog("received token: \(response.accessToken ?? "nil")")
+                self.tokenStorage.saveToken(response)
                 completionHandler(nil)
             } catch {
                 completionHandler(.requestError(error))
@@ -70,11 +69,11 @@ class ApiRepository {
         from path: String,
         completionHandler: @escaping (Result<Data, ApiRepositoryError>) -> Void
     ) {
-        guard let token = accessToken else {
+        guard let token = tokenStorage.getToken() else {
             accessTokenWaiters.append((path, completionHandler))
             if !gettingAccessToken {
                 gettingAccessToken = true
-                getToken { error in
+                updateAccessToken { error in
                     self.gettingAccessToken = false
                     if let error = error {
                         self.accessTokenWaiters.forEach { $0.1(.failure(error)) }
@@ -115,7 +114,7 @@ class ApiRepository {
         onSuccess: @escaping (Data) -> Void,
         onFailure: @escaping (Error) -> Void
     ) {
-        NSLog("DataTask with request to \(request.url?.absoluteString ?? "nil")")
+        NSLog("HTTP Request to \(request.url?.absoluteString ?? "nil")")
         urlSession.dataTask(with: request) { (data, response, error) in
             if let error = error { onFailure(error); return }
             guard let httpResponse = response as? HTTPURLResponse else { preconditionFailure() }

@@ -34,14 +34,11 @@ final class ItemTypesViewController: LoadableContentViewController {
             }
         }
     }
-    private var refreshControl: UIRefreshControl!
     
     private var highlightedCellPath: IndexPath?
     private var itemsController: ItemsViewController?
     
     private var itemsConstraints: [NSLayoutConstraint] = []
-    
-    private var verticalIndiciatorInsets: UIEdgeInsets!
     
     override func viewDidLoad() {
         
@@ -57,15 +54,8 @@ final class ItemTypesViewController: LoadableContentViewController {
         collectionView.alwaysBounceVertical = true
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.prefetchDataSource = self
         collectionView.register(ItemTypesCollectionViewCell.self, forCellWithReuseIdentifier: ItemTypesCollectionViewCell.identifier)
-
-        refreshControl = UIRefreshControl()
-        refreshControl.addTarget(
-            self,
-            action: #selector(handleRefreshControl),
-            for: .valueChanged
-        )
-//        collectionView.refreshControl = refreshControl
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -88,12 +78,6 @@ final class ItemTypesViewController: LoadableContentViewController {
 
         hideContent()
         handleRefreshControl(fullScreen: true)
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        verticalIndiciatorInsets = self.collectionView.verticalScrollIndicatorInsets
     }
     
     @objc func handleRefreshControl(fullScreen: Bool = false) {
@@ -141,13 +125,27 @@ extension ItemTypesViewController: UICollectionViewDataSource {
         cell.updateCellContent(with: itemType, highlighted: highlightedCellPath == indexPath)
         
         if itemType.areItemsNotLoaded {
-            dataProvider.retrieveItemsCount(for: itemType) { itemType, error in
-                if let error = error { print(error.localizedDescription) }
+            dataProvider.retrieveItemsCount(for: itemType) { [weak self] itemType, _ in
+                guard let self = self else { return }
                 self.sizesStorage[indexPath.item] = itemType.itemsCount > self.cellSizeDeterminator ? .large : .small
             }
         }
 
         return cell
+    }
+}
+
+extension ItemTypesViewController: UICollectionViewDataSourcePrefetching {
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        let itemTypes = indexPaths.map { ($0.item, fetchedItemTypesController.object(at: $0)) }
+        itemTypes.forEach { index, itemType in
+            if itemType.areItemsNotLoaded {
+                dataProvider.retrieveItemsCount(for: itemType) { [weak self] itemType, error in
+                    guard let self = self else { return }
+                    self.sizesStorage[index] = itemType.itemsCount > self.cellSizeDeterminator ? .large : .small
+                }
+            }
+        }
     }
 }
 
@@ -163,12 +161,6 @@ extension ItemTypesViewController: UICollectionViewDelegate {
         itemsVC.onViewDidAppear = {
             UIView.animate(withDuration: 0.5) {
                 collectionView.contentInset.bottom = itemsVC.view.frame.height
-                collectionView.verticalScrollIndicatorInsets = UIEdgeInsets(
-                    top: self.verticalIndiciatorInsets.top,
-                    left: self.verticalIndiciatorInsets.left,
-                    bottom: itemsVC.view.frame.height,
-                    right: -self.view.safeAreaInsets.right
-                )
             }
             collectionView.scrollToItem(at: indexPath, at: .centeredVertically, animated: true)
         }
@@ -193,6 +185,7 @@ extension ItemTypesViewController: UICollectionViewDelegate {
         NSLayoutConstraint.activate(itemsConstraints)
         
         func itemsVCResetTransform() {
+            collectionView.showsVerticalScrollIndicator = false
             itemsVC.view.transform = .identity
         }
         
@@ -213,23 +206,18 @@ extension ItemTypesViewController: UICollectionViewDelegate {
         guard let path = path else { return }
         highlightedCellPath = path
         collectionView.reloadItems(at: [path])
-        UIView.animate(withDuration: 0.1) {
-            self.navigationItem.largeTitleDisplayMode = .never
-        }
     }
     
     func unhighlightCell(at path: IndexPath?) {
         guard let path = path else { return }
         highlightedCellPath = nil
         collectionView.reloadItems(at: [path])
-        UIView.animate(withDuration: 0.1) {
-            self.navigationItem.largeTitleDisplayMode = .always
-        }
     }
     
     func closeItemsController(animated: Bool = true) {
         guard let itemsController = itemsController else { return }
         unhighlightCell(at: highlightedCellPath)
+        collectionView.showsVerticalScrollIndicator = true
         
         func hideUnderScreen() {
             itemsController.view.transform = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.height)
@@ -246,7 +234,6 @@ extension ItemTypesViewController: UICollectionViewDelegate {
             UIView.animate(withDuration: 0.5) {
                 hideUnderScreen()
                 self.collectionView.contentInset.bottom = 30
-                self.collectionView.verticalScrollIndicatorInsets = self.verticalIndiciatorInsets
             } completion: { finished in
                 guard finished, itemsController == self.itemsController else { return }
                 removeEnds()

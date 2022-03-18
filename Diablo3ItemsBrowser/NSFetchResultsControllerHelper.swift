@@ -15,7 +15,9 @@ class NSFetchResultsControllerHelper {
         return persistentContainer.viewContext
     }
     
-    var persistentContainer: NSPersistentContainer!
+    var persistentContainer: NSPersistentContainer {
+        return ServiceContext.shared.persistentContainer
+    }
     
     /// Create a new NSFetchedResultsController, configured to be used in view controllers.
     /// Creates a fetch request, adds sort descriptors, predicate, sets delegate and performs fetch.

@@ -8,7 +8,7 @@
 import CoreData
 
 extension NSPersistentContainer {
-    static let shared: NSPersistentContainer = {
+    static func newContainerForCurrentProject() -> NSPersistentContainer {
         let container = NSPersistentContainer(name: "Model")
 
         container.loadPersistentStores { (_, error) in
@@ -23,5 +23,5 @@ extension NSPersistentContainer {
         container.viewContext.automaticallyMergesChangesFromParent = true
 
         return container
-    }()
+    }
 }

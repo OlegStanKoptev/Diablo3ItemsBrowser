@@ -32,8 +32,7 @@ class BlizzardIconProvider: IconProvider {
             case .success(let data):
                 guard let blocks = self.loadingResponses[iconName] else { return }
                 guard let image = UIImage(data: data) else {
-                          NSLog("Image request returned bad data")
-                    
+                          NSLog("Image request returned bad data: " + iconName)
                     for block in blocks {
                         DispatchQueue.main.async {
                             block(

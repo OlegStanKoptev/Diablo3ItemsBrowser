@@ -33,18 +33,11 @@ class ItemsViewController: LoadableContentViewController {
         tableView.dataSource = self
         tableView.register(ItemsTableViewCell.self, forCellReuseIdentifier: "Cell")
         
-//        tableView.refreshControl = UIRefreshControl()
-        tableView.refreshControl?.addTarget(
-            self,
-            action: #selector(handleRefreshControl),
-            for: .valueChanged
-        )
-        
         view.addSubview(tableView)
         
         guard let itemTypeId = itemType.id else { preconditionFailure() }
         
-        fetchedItemsControllerDelegate = FetchedControllerDelegateForTableView(tableView)
+        fetchedItemsControllerDelegate = FetchedControllerDelegateForTableView(tableView: tableView, viewController: self)
         fetchedItemsController = NSFetchResultsControllerHelper.shared.makeFetchedResultsController(
             name: "Item",
             sortDescriptors: [
@@ -132,11 +125,8 @@ extension ItemsViewController: UITableViewDataSource {
         cell.startLoadingAnimation()
         
         
-        dataProvider.retrieveIcon(for: item, forceUpdate: updateCachedImage) { image, error in
-            self.updateCachedImage = false
-            if let error = error {
-                NSLog(error.localizedDescription)
-            }
+        dataProvider.retrieveIcon(for: item, forceUpdate: updateCachedImage) { [weak self] image, error in
+            self?.updateCachedImage = false
             DispatchQueue.main.async {
                 cell.stopLoadingAnimationAndSetContentImage(image)
             }
