@@ -18,12 +18,12 @@ class FetchedControllerDelegateForTableView: NSObject, NSFetchedResultsControlle
     }
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        guard viewController.isBeingPresented else { return }
+        guard viewController.viewIfLoaded?.window != nil else { return }
         self.tableView.beginUpdates()
     }
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
-        guard viewController.isBeingPresented else { return }
+        guard viewController.viewIfLoaded?.window != nil else { return }
         switch type {
         case .insert: self.tableView.insertSections([sectionIndex], with: .fade)
         case .delete: self.tableView.deleteSections([sectionIndex], with: .fade)
@@ -33,7 +33,7 @@ class FetchedControllerDelegateForTableView: NSObject, NSFetchedResultsControlle
     
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        guard viewController.isBeingPresented else { return }
+        guard viewController.viewIfLoaded?.window != nil else { return }
         switch type {
         case .insert: if let p = newIndexPath { self.tableView.insertRows(at: [p], with: .fade) }
         case .delete: if let p = newIndexPath { self.tableView.deleteRows(at: [p], with: .fade) }
@@ -44,7 +44,7 @@ class FetchedControllerDelegateForTableView: NSObject, NSFetchedResultsControlle
     }
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        guard viewController.isBeingPresented else { return }
+        guard viewController.viewIfLoaded?.window != nil else { return }
         self.tableView.endUpdates()
     }
 }

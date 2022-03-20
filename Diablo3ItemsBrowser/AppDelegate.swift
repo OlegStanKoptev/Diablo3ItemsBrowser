@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -32,9 +33,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             $0.itemDescriptionService = BlizzardItemDescriptionService(iconProvider: BlizzardIconProvider())
         }
         
+//        deleteRecordsFromCoreData(of: "ItemType")
+//        deleteRecordsFromCoreData(of: "Item")
+//        deleteRecordsFromCoreData(of: "ItemDescription")
+        
         return true
     }
+    
+    private func deleteRecordsFromCoreData(of typeName: String) {
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: typeName)
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
 
+        do {
+            try ServiceContext.shared.persistentContainer.persistentStoreCoordinator.execute(deleteRequest, with: ServiceContext.shared.persistentContainer.viewContext)
+            try ServiceContext.shared.persistentContainer.viewContext.save()
+            print("erased \(typeName) from db")
+        } catch let error as NSError {
+            fatalError(error.localizedDescription)
+        }
+    }
+    
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
