@@ -27,7 +27,7 @@ class ItemTypesCollectionViewCell: UICollectionViewCell {
         textLabel.adjustsFontForContentSizeCategory = true
 
         detailTextLabel.textAlignment = .center
-        detailTextLabel.numberOfLines = 2
+        detailTextLabel.numberOfLines = 3
         detailTextLabel.textColor = .secondaryLabel
         detailTextLabel.font = .preferredFont(forTextStyle: .footnote)
         detailTextLabel.adjustsFontForContentSizeCategory = true
@@ -55,7 +55,13 @@ class ItemTypesCollectionViewCell: UICollectionViewCell {
 
     func updateCellContent(with itemType: ItemType, highlighted: Bool = false) {
         textLabel.text = itemType.name ?? "no name"
-        detailTextLabel.text = itemType.id ?? "no id"
+        let id = itemType.id ?? "no id"
+        if itemType.itemsCount != 0 {
+            detailTextLabel.text = "\(itemType.itemsCount) of \(id)"
+        } else {
+            detailTextLabel.text = id
+        }
+//        detailTextLabel.text = itemType.id ?? "no id"
         if highlighted { highlight() } else { unhighlight() }
     }
 

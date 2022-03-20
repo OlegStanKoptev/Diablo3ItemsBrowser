@@ -12,7 +12,7 @@ final class ItemTypesViewController: LoadableContentViewController {
     var dataProvider: ItemTypesServiceProtocol!
     var collectionView: UICollectionView!
     
-    private let cellSizeDeterminator = 30
+    private let cellSizeDeterminator = 20
     
     private var fetchedItemTypesControllerDelegate: NSFetchedResultsControllerDelegate!
     private var fetchedItemTypesController: NSFetchedResultsController<ItemType>!
@@ -153,6 +153,9 @@ extension ItemTypesViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let wasShowingItems = itemsController != nil
         closeItemsController(animated: false)
+        UIView.animate(withDuration: 0.2) {
+            self.navigationItem.largeTitleDisplayMode = .never
+        }
         
         highlightCell(at: indexPath)
         let itemsVC = ItemsViewController()
@@ -216,6 +219,7 @@ extension ItemTypesViewController: UICollectionViewDelegate {
     
     func closeItemsController(animated: Bool = true) {
         guard let itemsController = itemsController else { return }
+        self.navigationItem.largeTitleDisplayMode = .always
         unhighlightCell(at: highlightedCellPath)
         collectionView.showsVerticalScrollIndicator = true
         
