@@ -12,7 +12,7 @@ final class ItemTypesViewController: LoadableContentViewController {
     var dataProvider: ItemTypesServiceProtocol!
     var collectionView: UICollectionView!
     
-    private let cellSizeDeterminator = 20
+    private let cellSizeDeterminator = 10
     
     private var fetchedItemTypesControllerDelegate: NSFetchedResultsControllerDelegate!
     private var fetchedItemTypesController: NSFetchedResultsController<ItemType>!

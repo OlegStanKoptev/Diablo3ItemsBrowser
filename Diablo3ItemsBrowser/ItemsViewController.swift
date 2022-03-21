@@ -118,6 +118,7 @@ extension ItemsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ItemsTableViewCell
+        cell.indexPath = indexPath
 
         let item = fetchedItemsController.object(at: indexPath)
         cell.updateCellContent(with: item)
@@ -128,7 +129,7 @@ extension ItemsViewController: UITableViewDataSource {
         dataProvider.retrieveIcon(for: item, forceUpdate: updateCachedImage) { [weak self] image, error in
             self?.updateCachedImage = false
             DispatchQueue.main.async {
-                cell.stopLoadingAnimationAndSetContentImage(image)
+                cell.stopLoadingAnimationAndSetContentImage(indexPath, image)
             }
         }
 

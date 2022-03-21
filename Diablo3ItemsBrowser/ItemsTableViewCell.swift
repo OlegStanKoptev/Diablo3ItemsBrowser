@@ -11,6 +11,7 @@ class ItemsTableViewCell: UITableViewCell {
     var name: UILabel!
     var id: UILabel!
     var iconView: UIImageView!
+    var indexPath: IndexPath?
     
     private var isLoading: Bool = false
     private var isPlannedToShimmer: Bool = false
@@ -60,6 +61,14 @@ class ItemsTableViewCell: UITableViewCell {
             id.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -10),
         ])
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        name.text = nil
+        id.text = nil
+        iconView.image = nil
+    }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -97,7 +106,8 @@ class ItemsTableViewCell: UITableViewCell {
         isLoading = false
     }
     
-    func stopLoadingAnimationAndSetContentImage(_ image: UIImage?) {
+    func stopLoadingAnimationAndSetContentImage(_ indexPath: IndexPath, _ image: UIImage?) {
+        guard indexPath == self.indexPath else { return }
         UIView.transition(with: iconView, duration: 0.1, options: .transitionCrossDissolve) {
             self.stopLoadingAnimation()
             self.iconView.image = image
