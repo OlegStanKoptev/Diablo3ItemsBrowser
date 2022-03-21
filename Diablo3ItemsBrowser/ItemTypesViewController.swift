@@ -161,7 +161,7 @@ extension ItemTypesViewController: UICollectionViewDelegate {
         let itemsVC = ItemsViewController()
         itemsVC.dataProvider = ServiceContext.shared.itemsService
         itemsVC.itemType = fetchedItemTypesController.object(at: indexPath)
-        itemsVC.onViewDidAppear = {
+        itemsVC.onViewDidAppear = { [unowned itemsVC] in
             UIView.animate(withDuration: 0.5) {
                 collectionView.contentInset.bottom = itemsVC.view.frame.height
             }
@@ -175,6 +175,7 @@ extension ItemTypesViewController: UICollectionViewDelegate {
         
         addChild(itemsVC)
         view.addSubview(itemsVC.view)
+        itemsVC.didMove(toParent: self)
         
         itemsConstraints = [
             itemsVC.view.leftAnchor.constraint(equalTo: view.leftAnchor),
@@ -229,8 +230,9 @@ extension ItemTypesViewController: UICollectionViewDelegate {
         
         func removeEnds() {
             NSLayoutConstraint.deactivate(self.itemsConstraints)
-            itemsController.removeFromParent()
+            itemsController.willMove(toParent: nil)
             itemsController.view.removeFromSuperview()
+            itemsController.removeFromParent()
             self.itemsController = nil
         }
         
@@ -238,8 +240,7 @@ extension ItemTypesViewController: UICollectionViewDelegate {
             UIView.animate(withDuration: 0.5) {
                 hideUnderScreen()
                 self.collectionView.contentInset.bottom = 30
-            } completion: { finished in
-                guard finished, itemsController == self.itemsController else { return }
+            } completion: { _ in
                 removeEnds()
             }
         } else {

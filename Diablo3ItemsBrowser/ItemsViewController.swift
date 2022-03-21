@@ -50,7 +50,7 @@ class ItemsViewController: LoadableContentViewController {
         
         view.backgroundColor = .systemGroupedBackground
         
-        hideContent()
+//        hideContent()
         handleRefreshControl(fullScreen: true)
     }
     
@@ -58,7 +58,7 @@ class ItemsViewController: LoadableContentViewController {
         super.viewWillAppear(animated)
         
         if let indexPaths = tableView.indexPathsForSelectedRows {
-            UIView.animate(withDuration: 0.25) {
+            UIView.animate(withDuration: 0.25) { [unowned self] in
                 indexPaths.forEach { self.tableView.deselectRow(at: $0, animated: true) }
             }
         }
@@ -92,9 +92,9 @@ class ItemsViewController: LoadableContentViewController {
     
     override func updateData(completionHandler: @escaping (Bool) -> Void) {
         dataProvider.retrieveItems(of: itemType) { error in
-            self.updateDataErrorHandler(error: error) {
-                if (self.fetchedItemsController.fetchedObjects?.isEmpty ?? true) {
-                    self.popViewController()
+            self.updateDataErrorHandler(error: error) { [weak self] in
+                if (self?.fetchedItemsController.fetchedObjects?.isEmpty ?? true) {
+                    self?.popViewController()
                 }
             } completionHandler: { hadError in
                 completionHandler(hadError)

@@ -41,7 +41,7 @@ class ItemDescriptionIconTableViewCell: UITableViewCell {
             guard let self = self else { return }
             if self.isPlannedToShimmer {
                 self.isPlannedToShimmer = false
-                self.iconView.backgroundColor = .tertiarySystemFill
+                self.iconView.backgroundColor = .quaternarySystemFill
                 self.iconView.startShimmeringAnimation()
             }
         }

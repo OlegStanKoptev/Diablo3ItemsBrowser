@@ -37,17 +37,17 @@ class LoadableContentViewController: UIViewController {
             NSLayoutConstraint.activate(indicatorConstrains)
         }
         activityIndicator.startAnimating()
-        UIView.animate(withDuration: 0.25) {
+        UIView.animate(withDuration: 0.25) { [unowned self] in
             self.activityIndicator.alpha = 1
             self.hideContent()
         }
     }
 
     func stopFullscreenSpinner() {
-        UIView.animate(withDuration: 0.25) {
+        UIView.animate(withDuration: 0.25) { [unowned self] in
             self.showContent()
             self.activityIndicator.alpha = 0
-        } completion: { finished in
+        } completion: {  [unowned self] finished in
             guard finished else { return }
             if self.indicatorAdded {
                 self.activityIndicator.removeFromSuperview()
@@ -58,7 +58,7 @@ class LoadableContentViewController: UIViewController {
     }
     
     func updateDataErrorHandler(error: DataProviderError?, onAlertClose: @escaping () -> Void = {}, completionHandler: @escaping (Bool) -> Void) -> Void {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [unowned self] in
             self.stopFullscreenSpinner()
         }
         if let error = error {
