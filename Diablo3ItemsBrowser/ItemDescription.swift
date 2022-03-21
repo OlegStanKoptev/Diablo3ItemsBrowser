@@ -68,6 +68,7 @@ public class ItemDescription: NSManagedObject, Decodable {
 extension ItemDescription {
     func getDescriptionAsKeyAndValue() -> [(String, String)] {
         let result: [(String, String?)] = [
+            ("Name", name),
             ("Id", id),
             ("Set Name", setName),
             ("Set Description", formattedSetDescription(setDescription)),
