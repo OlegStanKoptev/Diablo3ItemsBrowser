@@ -37,9 +37,9 @@ class LoadableContentViewController: UIViewController {
             NSLayoutConstraint.activate(indicatorConstrains)
         }
         activityIndicator.startAnimating()
-        UIView.animate(withDuration: 0.25) { [unowned self] in
-            self.activityIndicator.alpha = 1
-            self.hideContent()
+        UIView.animate(withDuration: 0.25) { [weak self] in
+            self?.activityIndicator.alpha = 1
+            self?.hideContent()
         }
     }
 
@@ -47,8 +47,8 @@ class LoadableContentViewController: UIViewController {
         UIView.animate(withDuration: 0.25) { [unowned self] in
             self.showContent()
             self.activityIndicator.alpha = 0
-        } completion: {  [unowned self] finished in
-            guard finished else { return }
+        } completion: {  [weak self] finished in
+            guard finished, let self = self else { return }
             if self.indicatorAdded {
                 self.activityIndicator.removeFromSuperview()
                 NSLayoutConstraint.deactivate(self.indicatorConstrains)
@@ -58,8 +58,8 @@ class LoadableContentViewController: UIViewController {
     }
     
     func updateDataErrorHandler(error: DataProviderError?, onAlertClose: @escaping () -> Void = {}, completionHandler: @escaping (Bool) -> Void) -> Void {
-        DispatchQueue.main.async { [unowned self] in
-            self.stopFullscreenSpinner()
+        DispatchQueue.main.async { [weak self] in
+            self?.stopFullscreenSpinner()
         }
         if let error = error {
             print("fetchItems error: \(error.localizedDescription)")

@@ -22,7 +22,7 @@ class NSFetchResultsControllerHelper {
     /// Create a new NSFetchedResultsController, configured to be used in view controllers.
     /// Creates a fetch request, adds sort descriptors, predicate, sets delegate and performs fetch.
     /// - Returns: New NSFetchedResultsController
-    func makeFetchedResultsController<T: NSManagedObject>(name: String, sortDescriptors: [NSSortDescriptor] = [], predicate: NSPredicate? = nil, delegate: NSFetchedResultsControllerDelegate) -> NSFetchedResultsController<T> {
+    func makeFetchedResultsController<T: NSManagedObject>(name: String, sortDescriptors: [NSSortDescriptor] = [], predicate: NSPredicate? = nil, delegate: NSFetchedResultsControllerDelegate?) -> NSFetchedResultsController<T> {
         let fetchRequest = NSFetchRequest<T>(entityName: name)
         fetchRequest.sortDescriptors = sortDescriptors
         if let predicate = predicate {

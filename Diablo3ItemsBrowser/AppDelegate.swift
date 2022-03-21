@@ -33,9 +33,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             $0.itemDescriptionService = BlizzardItemDescriptionService(iconProvider: BlizzardIconProvider())
         }
         
-//        deleteRecordsFromCoreData(of: "ItemType")
-//        deleteRecordsFromCoreData(of: "Item")
-//        deleteRecordsFromCoreData(of: "ItemDescription")
+        deleteRecordsFromCoreData(of: "ItemType")
+        deleteRecordsFromCoreData(of: "Item")
+        deleteRecordsFromCoreData(of: "ItemDescription")
         
         return true
     }

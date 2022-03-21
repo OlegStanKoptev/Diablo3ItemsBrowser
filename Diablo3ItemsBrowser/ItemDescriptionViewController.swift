@@ -14,7 +14,7 @@ class ItemDescriptionViewController: LoadableContentViewController {
     var item: Item!
     private var itemDescription: [(String, String)] = []
     
-    private var fetchedItemDescriptionControllerDelegate: NSFetchedResultsControllerDelegate!
+    private weak var fetchedItemDescriptionControllerDelegate: NSFetchedResultsControllerDelegate?
     private var fetchedItemDescriptionController: NSFetchedResultsController<ItemDescription>!
     
     private var updateCachedImage: Bool = true
@@ -78,9 +78,9 @@ class ItemDescriptionViewController: LoadableContentViewController {
     
     override func updateData(completionHandler: @escaping (Bool) -> Void) {
         dataProvider.retrieveItemDescription(of: item) { error in
-            self.updateDataErrorHandler(error: error) {
-                if (self.fetchedItemDescriptionController.fetchedObjects?.isEmpty ?? true) {
-                    self.navigationController?.popViewController(animated: true)
+            self.updateDataErrorHandler(error: error) { [weak self] in
+                if (self?.fetchedItemDescriptionController.fetchedObjects?.isEmpty ?? true) {
+                    self?.navigationController?.popViewController(animated: true)
                 }
             } completionHandler: { hadError in
                 completionHandler(hadError)

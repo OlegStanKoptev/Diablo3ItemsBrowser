@@ -37,7 +37,7 @@ class ItemsViewController: LoadableContentViewController {
         
         guard let itemTypeId = itemType.id else { preconditionFailure() }
         
-        fetchedItemsControllerDelegate = FetchedControllerDelegateForTableView(tableView: tableView, viewController: self)
+        fetchedItemsControllerDelegate = FetchedControllerDelegateForTableView(tableView: tableView)
         fetchedItemsController = NSFetchResultsControllerHelper.shared.makeFetchedResultsController(
             name: "Item",
             sortDescriptors: [
