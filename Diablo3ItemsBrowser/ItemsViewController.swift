@@ -50,7 +50,7 @@ class ItemsViewController: LoadableContentViewController {
         
         view.backgroundColor = .systemGroupedBackground
         
-//        hideContent()
+        hideContent()
         handleRefreshControl(fullScreen: true)
     }
     

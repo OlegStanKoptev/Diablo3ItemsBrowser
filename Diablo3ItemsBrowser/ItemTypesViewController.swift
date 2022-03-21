@@ -161,13 +161,17 @@ extension ItemTypesViewController: UICollectionViewDelegate {
         let itemsVC = ItemsViewController()
         itemsVC.dataProvider = ServiceContext.shared.itemsService
         itemsVC.itemType = fetchedItemTypesController.object(at: indexPath)
-        itemsVC.onViewDidAppear = { [unowned itemsVC] in
+        itemsVC.onViewDidAppear = { [weak itemsVC] in
             UIView.animate(withDuration: 0.5) {
-                collectionView.contentInset.bottom = itemsVC.view.frame.height
+                if let VCheight = itemsVC?.view.frame.height {
+                    collectionView.contentInset.bottom = VCheight
+                }
             }
             collectionView.scrollToItem(at: indexPath, at: .centeredVertically, animated: true)
         }
-        itemsVC.popViewController = { self.closeItemsController(animated: true) }
+        itemsVC.popViewController = { [unowned self] in
+            self.closeItemsController(animated: true)
+        }
         
         itemsVC.view.translatesAutoresizingMaskIntoConstraints = false
         

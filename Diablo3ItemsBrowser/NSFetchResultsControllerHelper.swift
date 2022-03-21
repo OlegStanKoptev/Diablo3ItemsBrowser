@@ -54,6 +54,13 @@ class NSFetchResultsControllerHelper {
             if context.hasChanges {
                 do {
                     try context.save()
+                    self.persistentContainer.viewContext.performAndWait {
+                        do {
+                            try self.persistentContainer.viewContext.save()
+                        } catch {
+                            print("Error: \(error)\nCould not save Core Data context.")
+                        }
+                    }
                 } catch {
                     print("Error: \(error)\nCould not save Core Data context.")
                 }

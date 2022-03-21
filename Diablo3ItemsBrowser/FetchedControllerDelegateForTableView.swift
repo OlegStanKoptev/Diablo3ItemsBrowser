@@ -39,6 +39,12 @@ class FetchedControllerDelegateForTableView: NSObject, NSFetchedResultsControlle
     }
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        self.tableView?.endUpdates()
+        do {
+            try ObjC.catchException {
+                self.tableView?.endUpdates()
+            }
+        } catch {
+            self.tableView?.reloadData()
+        }
     }
 }

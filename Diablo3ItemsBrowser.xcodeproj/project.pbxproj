@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		971CA2CC27E86C8000F9385E /* ObjC.m in Sources */ = {isa = PBXBuildFile; fileRef = 971CA2CB27E86C8000F9385E /* ObjC.m */; };
 		974F171227E1FD48000FB94E /* IconProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974F171127E1FD48000FB94E /* IconProvider.swift */; };
 		979CBA4B27E4AE2B00F47FAF /* TokenStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979CBA4A27E4AE2B00F47FAF /* TokenStorage.swift */; };
 		97A0374527E30DA90065D82B /* ServiceContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A0374427E30DA90065D82B /* ServiceContext.swift */; };
@@ -51,6 +52,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		971CA2C927E86C6300F9385E /* ObjC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObjC.h; sourceTree = "<group>"; };
+		971CA2CA27E86C8000F9385E /* Diablo3ItemsBrowser-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Diablo3ItemsBrowser-Bridging-Header.h"; sourceTree = "<group>"; };
+		971CA2CB27E86C8000F9385E /* ObjC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjC.m; sourceTree = "<group>"; };
 		974F171127E1FD48000FB94E /* IconProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconProvider.swift; sourceTree = "<group>"; };
 		979CBA4A27E4AE2B00F47FAF /* TokenStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenStorage.swift; sourceTree = "<group>"; };
 		97A0374427E30DA90065D82B /* ServiceContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceContext.swift; sourceTree = "<group>"; };
@@ -231,6 +235,9 @@
 				DC213E9227DB1AB700B27C05 /* Controllers */,
 				DC213E8527DB155000B27C05 /* Models */,
 				DC213E8227DB153E00B27C05 /* Networking */,
+				971CA2C927E86C6300F9385E /* ObjC.h */,
+				971CA2CB27E86C8000F9385E /* ObjC.m */,
+				971CA2CA27E86C8000F9385E /* Diablo3ItemsBrowser-Bridging-Header.h */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -382,6 +389,7 @@
 				TargetAttributes = {
 					DC213E3B27D8A24C00B27C05 = {
 						CreatedOnToolsVersion = 13.2.1;
+						LastSwiftMigration = 1330;
 					};
 				};
 			};
@@ -435,6 +443,7 @@
 				DC213E8B27DB157200B27C05 /* ApiRepositoryError.swift in Sources */,
 				DC213E6227D9EE4600B27C05 /* ItemType.swift in Sources */,
 				DC213E4227D8A24C00B27C05 /* SceneDelegate.swift in Sources */,
+				971CA2CC27E86C8000F9385E /* ObjC.m in Sources */,
 				97A0374727E3479A0065D82B /* ItemsTableViewCell.swift in Sources */,
 				DC213E7527D9EFD900B27C05 /* BlizzardItemsService.swift in Sources */,
 				DC213E9627DB1B0700B27C05 /* FetchedControllerDelegateForTableView.swift in Sources */,
@@ -597,6 +606,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2ZY3SQBRC4;
@@ -615,6 +625,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.koptev.Diablo3ItemsBrowser;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Diablo3ItemsBrowser/Diablo3ItemsBrowser-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -625,6 +637,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2ZY3SQBRC4;
@@ -643,6 +656,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.koptev.Diablo3ItemsBrowser;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Diablo3ItemsBrowser/Diablo3ItemsBrowser-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
