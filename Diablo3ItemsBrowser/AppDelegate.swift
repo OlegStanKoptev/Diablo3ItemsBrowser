@@ -26,7 +26,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         ServiceContext.configure {
             $0.repository = repo
-            $0.repository.tokenStorage = .init()
             $0.persistentContainer = .newContainerForCurrentProject()
             $0.itemTypesService = BlizzardItemTypesService()
             $0.itemsService = BlizzardItemsService(iconProvider: BlizzardIconProvider())
