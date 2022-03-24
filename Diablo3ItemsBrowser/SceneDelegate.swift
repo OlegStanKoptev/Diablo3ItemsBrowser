@@ -19,8 +19,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
 
-        let vc = ItemTypesViewController()
-        vc.dataProvider = ServiceContext.shared.itemTypesService
+        let vc = ItemTypesViewController(
+            sectionsStore: .init([.init(id: .main, itemTypes: ["1", "2", "3"])]),
+            itemTypesStore: .init([
+                .init(id: "1", name: "Item Type 1"),
+                .init(id: "2", name: "Item Type 2"),
+                .init(id: "3", name: "Item Type 3"),
+            ])
+        )
+//        vc.dataProvider = ServiceContext.shared.itemTypesService
 
         let navc = UINavigationController(rootViewController: vc)
         navc.navigationBar.prefersLargeTitles = true

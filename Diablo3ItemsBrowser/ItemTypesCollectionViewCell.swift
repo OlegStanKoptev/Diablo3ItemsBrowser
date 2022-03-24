@@ -55,15 +55,14 @@ class ItemTypesCollectionViewCell: UICollectionViewCell {
         super.init(coder: coder)
     }
 
-    func updateCellContent(with itemType: ItemType, highlighted: Bool = false) {
-        textLabel.text = itemType.name ?? "no name"
-        let id = itemType.id ?? "no id"
-        if itemType.itemsCount != 0 {
-            detailTextLabel.text = "\(itemType.itemsCount) of \(id)"
+    func updateCellContent(with itemType: ItemTypeData, highlighted: Bool = false) {
+        textLabel.text = itemType.name
+        let id = itemType.id
+        if itemType.itemCount != 0 {
+            detailTextLabel.text = "\(itemType.itemCount) of \(id)"
         } else {
             detailTextLabel.text = id
         }
-//        detailTextLabel.text = itemType.id ?? "no id"
         if highlighted { highlight() } else { unhighlight() }
     }
 
