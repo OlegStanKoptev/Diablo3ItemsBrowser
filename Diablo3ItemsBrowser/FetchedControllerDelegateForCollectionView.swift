@@ -105,6 +105,8 @@ class FetchedControllerDelegateForCollectionView: NSObject, NSFetchedResultsCont
             }
         }
         
+        guard !_objectChanges.isEmpty || !_sectionChanges.isEmpty else { return }
+        
         collectionView?.performBatchUpdates {
             if let deletedSections = _sectionChanges[.delete], !deletedSections.isEmpty {
                 collectionView?.deleteSections(deletedSections)

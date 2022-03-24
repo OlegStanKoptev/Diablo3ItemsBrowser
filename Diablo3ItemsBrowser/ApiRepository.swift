@@ -109,15 +109,28 @@ class ApiRepository {
     }
     
     // MARK: - Private Methods
+    private func retrieveToken() -> Bool {
+        return true
+    }
+    
+    
     private func getRequest(
         _ request: URLRequest,
         onSuccess: @escaping (Data) -> Void,
         onFailure: @escaping (Error) -> Void
     ) {
+        var request = request
         NSLog("HTTP Request to \(request.url?.absoluteString ?? "nil")")
         urlSession.dataTask(with: request) { (data, response, error) in
             if let error = error { onFailure(error); return }
             guard let httpResponse = response as? HTTPURLResponse else { preconditionFailure() }
+            
+            if (httpResponse.statusCode == 401) {
+                request.setValue("Bearer token", forHTTPHeaderField: "Authorization")
+                self.getRequest(request, onSuccess: onSuccess, onFailure: onFailure)
+                return
+            }
+            
             guard let data = data else { onFailure(ApiRepositoryError.noData(httpResponse.statusCode)); return }
             onSuccess(data)
         }.resume()
